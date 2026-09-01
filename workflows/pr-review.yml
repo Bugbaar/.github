@@ -4,6 +4,11 @@ name: PR Review (Reusable)
 
 on:
   workflow_call:   # callable by every repo in the org
+    inputs:
+      pr_number:
+        description: 'PR number to review (used for manual runs)'
+        required: false
+        type: string
 
 jobs:
   review:
@@ -28,10 +33,10 @@ jobs:
           track_progress: true
           prompt: |
             REPO: ${{ github.repository }}
-            PR NUMBER: ${{ github.event.pull_request.number }}
+            PR NUMBER: ${{ inputs.pr_number || github.event.pull_request.number }}
 
-            You are a Staff Software Development Engineer (SDE) and principal AI/Data Scientist
-             at Bugbaar performing rigorous PR reviews for production web platforms
+            You are a Senior Software Development Engineer (SDE) and Senior AI/Data Science
+            Engineer at Bugbaar performing rigorous PR reviews for production web platforms
             (React/TypeScript frontends, Node.js/Express/TypeScript backends, MongoDB/Mongoose,
             REST APIs) and AI-powered features (LLM integrations, data pipelines, ML models)
             that serve real users.
